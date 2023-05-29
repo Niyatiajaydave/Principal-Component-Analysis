@@ -1,0 +1,379 @@
+Q.1. Six variables were measured (in mm) on 100 genuine and 100 forged old Swiss notes. The data is given in Bank notes.xlsx. The first 100 observations are from genuine
+notes and the remaining observations are from forged banknotes. Consider the entire
+data as a single dataset.
+
+(a) Carry out Principal Component Analysis (PCA) on the basis of covariance matrix.
+
+MINITAB:
+Results for: Bank notes.xlsx
+
+Principal Component Analysis: LENGTH, LEFTHEIGHT, RIGHTHEIGHT, LOWERMARGIN, UPP 
+
+Eigen analysis of the Covariance Matrix
+
+Eigen value  3.0003  0.9356  0.2434  0.1947  0.0852  0.0355
+Proportion   0.668   0.208   0.054   0.043   0.019   0.008
+Cumulative   0.668   0.876   0.930   0.973   0.992   1.000
+
+
+Variable        PC1     PC2    PC3     PC4     PC5     PC6
+LENGTH        0.044   0.011  0.326  -0.562   0.753  -0.098
+LEFTHEIGHT   -0.112   0.071  0.259  -0.455  -0.347   0.767
+RIGHTHEIGHT  -0.139   0.066  0.345  -0.415  -0.535  -0.632
+LOWERMARGIN  -0.768  -0.563  0.218   0.186   0.100   0.022
+UPPERMARGIN  -0.202   0.659  0.557   0.451   0.102   0.035
+DIAGONAL      0.579  -0.489  0.592   0.258  -0.084   0.046
+
+
+
+(b) Draw the scree plot.
+
+
+ 
+
+
+
+(c) How many PCs are required to explain 90% variation?
+As observed from the above table 3 PCs are required to explain 90% variation.
+
+
+(d) Draw the score plot for the first two PCs and mark the observations of the two
+groups (genuine and forged) by two different colors. Are the two groups clearly
+distinguishable?
+
+ 
+
+
+(e) On the basis of first two PCs, which variables are important according to you?
+
+As observed in the table the variables Lower Margin and Upper Margin are the most important as they are the largest in magnitude in the first 2 PCs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(f) Convert the data on X1;X2;X3;X6 from mm to cm. Carry out the PCA using
+this new dataset. Does your conclusion in (e) remain same? Justify your answer.
+
+Principal Component Analysis: LOWERMARGIN, UPPERMARGIN, C8, C9, C10, C11 
+
+Eigen analysis of the Covariance Matrix
+
+Eigen value  2.1118  0.6294  0.0047  0.0021  0.0009  0.0004
+Proportion   0.768   0.229   0.002   0.001   0.000   0.000
+Cumulative   0.768   0.997   0.999   1.000   1.000   1.000
+
+
+Variable        PC1     PC2     PC3     PC4     PC5     PC6
+LOWERMARGIN  -0.992   0.117   0.045  -0.006   0.009   0.002
+UPPERMARGIN  -0.113  -0.991   0.076  -0.012   0.007   0.003
+LENGTH        0.005   0.001   0.054   0.632   0.766  -0.100
+LEFTHEIGHT   -0.011  -0.013  -0.100   0.535  -0.334   0.769
+RIGHTHEIGHT  -0.014  -0.015  -0.063   0.557  -0.537  -0.630
+DIAGONAL      0.052   0.069   0.988   0.056  -0.111   0.043
+
+As observed in the above table the variables Lower Margin and Upper Margin are still the most important among the six variables. However the number of PCs required to explain the 90%  variation in the data is only 2 and not 3 as seen in the first case.
+
+(g) Carry out PCA using correlation matrix for both the datasets. Are the results
+comparable?
+
+Original Dataset:
+
+Principal Component Analysis: LENGTH, LEFTHEIGHT, RIGHTHEIGHT, LOWERMARGIN, UPP 
+
+Eigen analysis of the Correlation Matrix
+
+Eigen value  2.9456  1.2781  0.8690  0.4498  0.2687  0.1889
+Proportion   0.491   0.213   0.145   0.075   0.045   0.031
+Cumulative   0.491   0.704   0.849   0.924   0.969   1.000
+
+
+Variable        PC1     PC2     PC3     PC4     PC5     PC6
+LENGTH        0.007   0.815   0.018   0.575   0.059   0.031
+LEFTHEIGHT   -0.468   0.342  -0.103  -0.395  -0.639  -0.298
+RIGHTHEIGHT  -0.487   0.252  -0.123  -0.430   0.614   0.349
+LOWERMARGIN  -0.407  -0.266  -0.584   0.404   0.215  -0.462
+UPPERMARGIN  -0.368  -0.091   0.788   0.110   0.220  -0.419
+DIAGONAL      0.4930.274  -0.114  -0.392   0.340  -0.632
+
+
+
+
+New Dataset:
+
+Principal Component Analysis: LOWERMARGIN, UPPERMARGIN, C8, C9, C10, C11 
+
+Eigen analysis of the Correlation Matrix
+
+Eigen value  2.9456  1.2781  0.8690  0.4498  0.2687  0.1889
+Proportion   0.491   0.213   0.145   0.075   0.045   0.031
+Cumulative   0.491   0.704   0.849   0.924   0.969   1.000
+
+
+Variable        PC1     PC2     PC3     PC4     PC5     PC6
+LOWERMARGIN  -0.407   0.266  -0.584  -0.404  -0.215   0.462
+UPPERMARGIN  -0.368   0.091   0.788  -0.110  -0.220   0.419
+C8            0.007  -0.815   0.018  -0.575  -0.059  -0.031
+C9           -0.468  -0.342  -0.103   0.395   0.639   0.298
+C10          -0.487  -0.252  -0.123   0.430  -0.614  -0.349
+C11           0.493  -0.274  -0.114   0.392  -0.340   0.632
+
+As observed in both tables the Principal Component Analysis is the same for both the datasets.
+This is true as correlation is invariant to change of scale.
+
+R SOFTWARE:
+a)
+> BR=read.table("G:/Semester 2/ST 9 (P)/Bank notes.xls",header=T)
+> p=dim(BR)[2]
+> n=dim(BR)[1]
+> X=t(BR)
+> I=diag(200)
+> E=matrix(1,nrow=200)
+> S=X%*%(I-E%*%t(E)/200)%*%t(X)
+> Sig=S/n
+>eval=eigen(Sig)$values
+>evec=eigen(Sig)$vector
+
+b)
+>plot(eval,type="l",main="SCREE PLOT",xlab="Principal Component",ylab="EigenValue")
+
+
+
+
+ 
+
+c)
+>pr=cumsum(eval)/sum(eval)
+>min(which(pr>0.9))
+[1] 3
+
+d)
+> PC=t(X)%*%evec
+> plot(PC[,1],PC[,2],col=c(rep(1,100),rep(2,100)),main="SCORE PLOT FOR PC1,PC2")
+
+ 
+
+
+e) >evec
+                          [,1]                    [,2]                 [,3]                 [,4]                  [,5 ]                   [,6]
+[1,] -0.04377427 -0.01070966 -0.3263165 -0.5616918  0.75257278  0.09809807
+[2,]  0.11216159 -0.07144697 -0.2589614 -0.4554588 -0.34680082 -0.76651197
+[3,]  0.13919062 -0.06628208 -0.3447327 -0.4153296 -0.53465173  0.63169678
+[4,]  0.76830499  0.56307225 -0.2180222  0.1861082  0.09996771 -0.02221711
+[5,]  0.20176610-0.65928988 -0.5566857  0.4506985  0.10190229 -0.03485874
+[6,] -0.57890193  0.48854255 -0.5917628  0.2584483 -0.08445895 -0.04567946
+
+On the basis of the first two PCs we observe that the variables Lower Margin and Upper Margin are the most important as they are the largest in magnitude in the first 2 PCs.
+
+f)
+> CM1=BR$LENGTH
+> CM2=BR$LEFTHEIGHT
+> CM3=BR$RIGHTHEIGHT
+> CM6=BR$DIAGONAL 
+> CM1=CM1/10
+> CM2=CM2/10
+> CM3=CM3/10
+> CM6=CM6/10
+> BRN=cbind(CM1,CM2,CM3,BR[,4],BR[,5],CM6)
+> is.matrix(BRN)
+[1] TRUE
+> dim(BRN)
+[1] 200   6
+> X=t(BRN)
+> S1=X%*%(I-E%*%t(E)/200)%*%t(X)
+> Sig1=S1/200
+> evec1=eigen(Sig1)$vector
+> evec1
+                             [,1]                      [,2]                   [,3]                      [,4]                      [,5]                     [,6]
+[1,]  0.004970459  0.001077508 -0.05418413 -0.632468477  0.766186349 -0.099901536
+[2,] -0.010766037 -0.012792842  0.10036980 -0.535199841 -0.334334672  0.769043429
+[3,] -0.014120204 -0.015491163  0.06292408 -0.556945745 -0.537307213 -0.629852046
+[4,] -0.992013657  0.117213034 -0.04532457  0.006265579  0.008502681  0.002034642
+[5,] -0.113414535 -0.990520894 -0.07622973  0.011763635  0.006845718  0.003046924
+[6,]  0.052019751  0.068736232 -0.98750456 -0.056378648 -0.111178259  0.043184074
+
+> min(which((cumsum(eigen(Sig1)$values)/sum(eigen(Sig1)$values))>0.9))
+[1] 2
+
+As observed in the above table the variables Lower Margin and Upper Margin are still the most important among the six variables. However 2 PCs are needed to explain 90% variation.
+g)
+Original Dataset
+> C1=cov2cor(Sig)
+> evec2=eigen(C1)$vector
+> evec2
+             [,1]        [,2]        [,3]       [,4]       [,5]        [,6]
+[1,]  0.006987029  0.81549497  0.01768066 -0.5746173  0.0587961 -0.03105698
+[2,] -0.467758161  0.34196711 -0.10338286  0.3949225 -0.6394961  0.29774768
+[3,] -0.486678705  0.25245860 -0.12347472  0.4302783  0.6140972 -0.34915294
+[4,] -0.406758327 -0.26622878 -0.58353831 -0.4036735  0.2154756  0.46235361
+[5,] -0.367891118 -0.09148667  0.78757147 -0.1102267  0.2198494  0.41896754
+[6,]  0.493458317  0.27394074 -0.11387536  0.3919305  0.3401601  0.63179849
+
+
+
+New Dataset
+> C2=cov2cor(Sig1)
+> evec3=eigen(Sig1)$vector
+> evec3
+             [,1]                                   [,2]                   [,3]                 [,4]                [,5]                    [,6]
+[1,]  0.006987029  0.81549497  0.01768066 -0.5746173  0.0587961 -0.03105698
+[2,] -0.467758161  0.34196711 -0.10338286  0.3949225 -0.6394961  0.29774768
+[3,] -0.486678705  0.25245860 -0.12347472  0.4302783  0.6140972 -0.34915294
+[4,] -0.406758327 -0.26622878 -0.58353831 -0.4036735  0.2154756  0.46235361
+[5,] -0.367891118 -0.09148667  0.78757147 -0.1102267  0.2198494  0.41896754
+[6,]  0.493458317  0.27394074 -0.11387536  0.3919305  0.3401601  0.63179849
+
+
+
+As observed in both tables the Principal Component Analysis is the same for both the datasets. This is true as correlation is invariant to change of scale.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Q.2 The data on national track records for men at various track races is given in the filetrackrecord.xlsx.
+
+MINITAB:
+(a) Carry out the PCA using correlation matrix.
+
+Principal Component Analysis: X100m.s., X200m.s., X400m.s., X800m.min., X1500m. 
+
+Eigen analysis of the Correlation Matrix
+
+Eigen value  6.6904  0.6350  0.2283  0.2132  0.0957  0.0796  0.0479  0.0098
+Proportion   0.836   0.079   0.029   0.027   0.012   0.010   0.006   0.001
+Cumulative   0.836   0.916   0.944   0.971   0.983   0.993   0.999   1.000
+
+
+Variable         PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8
+X100m.s.       0.333  -0.528  -0.260  -0.437  -0.069  -0.495  -0.310   0.071
+X200m.s.       0.347  -0.466   0.066  -0.203   0.361   0.549   0.424  -0.067
+X400m.s.       0.339  -0.346  -0.140   0.825  -0.214   0.053  -0.128   0.006
+X800m.min.     0.353   0.090   0.774   0.109   0.367  -0.290  -0.187   0.045
+X1500m.min.    0.364   0.138   0.321  -0.258  -0.777   0.273  -0.007   0.030
+X5000m.min.    0.370   0.299  -0.194   0.022  -0.004  -0.319   0.370  -0.705
+X10000m.min.   0.366   0.338  -0.256   0.037   0.075  -0.175   0.402   0.697
+Marathon.min.  0.354   0.392  -0.320  -0.085   0.275   0.398  -0.611  -0.066
+
+
+
+
+
+
+(b) Draw the scree plots.
+
+
+
+
+ 
+(c) How many PCs are required to explain 90% variation?
+
+As observe in the above table the first two components are required to explain 90% of the variation.
+
+
+
+(d) Draw the score plots for the first two PCs
+
+
+
+
+(e) On the basis of first PC and score plot, which countries appear to have the records
+for overall fastest and slowest times?
+
+As observed in the above graph, the country with the fastest record is USA the first PC is 3.8069.The country with the slowest record is Cooks Islands with the first PC as -10.6752.
+
+
+
+
+
+R SOFTWARE:
+
+a) 
+> TR=read.table("L:/ST 9 (P)/track record.xls",header=T)
+> dim(TR)
+[1] 54  9
+> X1=t(TR[,-1])
+> I2=diag(54)
+> E2=matrix(1,nrow=54)
+> S2=X1%*%(I2-E2%*%t(E2)/54)%*%t(X1)
+> Sig2=S2/54
+> C=cov2cor(Sig2)
+> eve=eigen(C)$vector
+> eve
+                     [,1]                     [,2]                    [,3]                   [,4]                     [,5]                   [,6]         
+[1,] 0.3330021  0.52825595 -0.26028215  0.43741550  0.068768097  0.49526977  
+[2,] 0.3473808  0.46565220  0.06559782  0.20257282 -0.361453806 -0.54943222 -
+[3,] 0.3389998  0.34642725 -0.14029178 -0.82474226  0.214150758 -0.05347599  
+[4,] 0.3530927 -0.09049139  0.77422861 -0.10935264 -0.366854061  0.29035578  
+[5,] 0.3640108 -0.13771398  0.32132227  0.25783589  0.776637624 -0.27333146  
+[6,] 0.3698437 -0.29858198 -0.19400085 -0.02236503  0.004036495  0.31913442 -
+[7,] 0.3660614 -0.33834764 -0.25642653 -0.03657855 -0.074501111  0.17501382 -
+[8,] 0.3543328 -0.39155803 -0.31968657  0.08459679 -0.274676061 -0.39809449
+
+                           [,7]                       [,8]
+[1,] 0.309810036   0.070517111
+[2,] 0.424393840  -0.067238883
+[3,] 0.128198138    0.005543616
+[4,] 0.186575372   0.045278509
+[5,] 0.007310659   0.029566030
+[6,] 0.370465972  -0.704854484
+[7,] 0.402322523    0.697412130
+[8,] 0.611146941   -0.065937259
+
+
+
+
+
+
+
+
+
+
+
+
+
+b)
+>ev=eigen(C)$values
+>plot(ev,type="l",main="SCREE PLOT",xlab="Components")
+ 
+
+      c)
+> pr2=cumsum(ev)/sum(ev)
+> min(which(pr2>0.9))
+[1] 2  
+
+d)
+> SP2=t(X1)%*%eve
+> plot(SP2[,1],SP2[,2],main="SCORE PLOT")
+
+ 
+
+    
+Q3
+> A=matrix(c(1,4,4,100),nrow=2,ncol=2,byrow=T)
+> A
+     [,1] [,2]
+[1,]    1    4
+[2,]    4  100
+> eval3=eigen(A)$value
+> evec3=eigen(A)$vector
+> I3=diag(2)
+> E3=matrix(1,nrow=2)
